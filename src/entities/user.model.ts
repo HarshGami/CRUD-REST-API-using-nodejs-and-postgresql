@@ -1,0 +1,28 @@
+import { DataTypes } from 'sequelize';
+import sequelize from '../configs/db.config';
+
+const User = sequelize.define("userbasic", {
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+  },
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  email: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  password: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+});
+
+User.sync().then(() => {
+  console.log("User Model synced");
+});
+
+export default User;
