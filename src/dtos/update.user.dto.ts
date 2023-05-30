@@ -1,7 +1,5 @@
 interface UpdateUserDTO {
-    name?: string;
-    email?: string;
-    password?: string;
+    name: string;
 }
 
 export default UpdateUserDTO;
