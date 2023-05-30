@@ -1,12 +1,20 @@
 import CreateUserDTO from '../dtos/create.user.dto';
 import UpdateUserDTO from '../dtos/update.user.dto';
 import User from "../entities/user.model";
+import bcrypt from "bcrypt";
 
 class UserService {
   async createUser(userData: CreateUserDTO): Promise<any> {
+
+    const user = await User.findOne({ where: { email: userData.email } });
+    if (user) return { status: "failed", message: "user with email is exist" };
+
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(userData.password, salt);
+
     User.create({
       email: userData.email,
-      password: userData.password,
+      password: hash,
       name: userData.name
     });
     return { status: "success", message: "userData added successfully" };
